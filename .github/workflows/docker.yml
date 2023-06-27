@@ -24,6 +24,7 @@ jobs:
       run: |
         docker compose up --build
         docker exec actions-tp-fastapi-1 pytest -q src/tests/app_test.py
+        docker compose down
 
     - name: Deploy
       run: |
