@@ -16,6 +16,20 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Set up Docker Compose
+      run: |
+        sudo apt-get install -y docker-compose
+
+    - name: Build and test
+      run: |
+        docker compose up --build
+        docker exec actions-tp-fastapi-1 pytest -q src/tests/app_test.py
+
     - name: Deploy
       run: |
         docker-compose up -d
+
+    - name: Run integration tests
+      run: |
+        # Run integration tests against the deployed application
+        # Example: python test_integration.py
