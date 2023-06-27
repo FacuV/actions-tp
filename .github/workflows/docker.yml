@@ -22,9 +22,9 @@ jobs:
 
     - name: Build and test
       run: |
-        docker compose up --build
-        docker exec actions-tp-fastapi-1 pytest -q src/tests/app_test.py
-        docker compose down
+        docker-compose up --build -d
+        docker-compose exec app pytest -q src/tests/app_test.py
+        docker-compose down
 
     - name: Deploy
       run: |
