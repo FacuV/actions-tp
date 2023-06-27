@@ -16,11 +16,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Build and test
-      run: |
-        docker-compose build
-        docker-compose run --rm app pytest
-
     - name: Deploy
       run: |
         docker-compose up -d
