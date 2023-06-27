@@ -20,15 +20,9 @@ jobs:
       run: |
         sudo apt-get install -y docker-compose
 
-    - name: Build and test
-      run: |
-        docker-compose up --build -d
-        docker-compose exec app pytest -q src/tests/app_test.py
-        docker-compose down
-
     - name: Deploy
       run: |
-        docker-compose up -d
+        docker-compose up -d --build
 
     - name: Run integration tests
       run: |
