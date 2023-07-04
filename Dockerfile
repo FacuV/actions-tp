@@ -8,7 +8,8 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install the Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install -y postgresql-client
+RUN pip install -r requirements.txt
 
 # Copy the application code into the container
 COPY . .
@@ -16,5 +17,4 @@ COPY . .
 # Expose the port on which the FastAPI app will run
 EXPOSE 8000
 
-# Start the FastAPI app when the container starts
-CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--reload" , "--port", "8000"]
+ENTRYPOINT [ "./entrypoint.sh" ]

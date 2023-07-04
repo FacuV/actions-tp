@@ -1,6 +1,8 @@
 version: '3'
+
 services:
   fastapi:
+    container_name: fastapi
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,3 +10,24 @@ services:
       - 8000:8000
     volumes:
       - .:/app
+    depends_on:
+      - postgresql
+    networks:
+      db:
+
+  postgresql:
+    container_name: postgres
+    image: postgres
+    ports:
+      - 10000:5432
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=users
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      db:
+
+networks:
+  db:
